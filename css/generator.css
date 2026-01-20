@@ -61,6 +61,7 @@
   /* Layout */
   --max-width-form: 720px;
   --header-height: 56px;
+  --strip-height: 28px;
 
   /* Border Radius */
   --radius-sm: 4px;
@@ -140,7 +141,7 @@ body {
 main {
   flex: 1;
   padding: var(--space-24);
-  padding-top: calc(var(--header-height) + var(--space-24));
+  padding-top: calc(var(--header-height) + var(--strip-height) + var(--space-24));
 }
 
 a {
@@ -159,7 +160,7 @@ a:hover {
 
 .header {
   position: fixed;
-  top: 0;
+  top: var(--strip-height);
   left: 0;
   right: 0;
   height: var(--header-height);
@@ -193,7 +194,15 @@ a:hover {
 
 /* Site Strip - Cross-site navigation */
 .site-strip {
-  padding: 8px 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--strip-height);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 101;
 }
 
 .site-strip__link {
@@ -904,7 +913,7 @@ a:hover {
 @media (max-width: 768px) {
   main {
     padding: var(--space-16);
-    padding-top: calc(var(--header-height) + var(--space-16));
+    padding-top: calc(var(--header-height) + var(--strip-height) + var(--space-16));
   }
 
   .nav {

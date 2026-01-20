@@ -4,21 +4,18 @@
    ============================================ */
 
 :root {
-  /* Electric Purple Palette - Light Mode */
+  /* Default Purple Palette - Light Mode (overridden by theme selection) */
   --color-primary: #8B5CF6;
   --color-primary-dark: #7C3AED;
   --color-primary-light: #A78BFA;
   --color-primary-glow: rgba(139, 92, 246, 0.2);
+  --color-accent: #A78BFA;
 
-  /* Gradient Accent Colors */
-  --color-accent-pink: #EC4899;
-  --color-accent-blue: #3B82F6;
-  --color-accent-cyan: #06B6D4;
-  --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
-  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-  --gradient-subtle: linear-gradient(180deg, #F8F7FF 0%, #FFFFFF 100%);
+  /* Shadow colors (theme-aware) */
+  --shadow-primary: rgba(139, 92, 246, 0.15);
+  --shadow-primary-hover: rgba(139, 92, 246, 0.25);
 
-  /* Background Colors - Soft purple tint */
+  /* Background Colors - Soft tint */
   --color-bg: #FAFAFF;
   --color-bg-secondary: #F5F3FF;
   --color-bg-tertiary: #EDE9FE;
@@ -32,9 +29,6 @@
   /* Border Colors */
   --color-border: #E9E5FF;
   --color-border-hover: #DDD6FE;
-
-  --color-shadow: rgba(139, 92, 246, 0.08);
-  --color-shadow-elevated: rgba(139, 92, 246, 0.15);
 
   --color-error: #EF4444;
   --color-error-light: #FEF2F2;
@@ -84,11 +78,11 @@
   --radius-2xl: 32px;
   --radius-full: 9999px;
 
-  /* Shadows - With color tint */
-  --shadow-sm: 0 1px 3px rgba(139, 92, 246, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(139, 92, 246, 0.1), 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 32px rgba(139, 92, 246, 0.15), 0 4px 8px rgba(0, 0, 0, 0.04);
-  --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.2);
+  /* Shadows - With color tint (uses shadow-primary for theme-awareness) */
+  --shadow-sm: 0 1px 3px var(--shadow-primary), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px var(--shadow-primary), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 32px var(--shadow-primary-hover), 0 4px 8px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 40px var(--color-primary-glow);
 
   /* Transitions */
   --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -98,16 +92,16 @@
   --transition-bounce: 0.4s var(--ease-bounce);
 }
 
-/* Dark Mode - Rich purple darkness */
+/* Dark Mode - Rich darkness (overridden by theme selection) */
 [data-theme="dark"] {
   --color-primary: #A78BFA;
   --color-primary-dark: #8B5CF6;
   --color-primary-light: #C4B5FD;
   --color-primary-glow: rgba(167, 139, 250, 0.25);
+  --color-accent: #C4B5FD;
 
-  --gradient-primary: linear-gradient(135deg, #A78BFA 0%, #F472B6 100%);
-  --gradient-hero: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%);
-  --gradient-subtle: linear-gradient(180deg, #1E1B2E 0%, #0F0D1A 100%);
+  --shadow-primary: rgba(0, 0, 0, 0.3);
+  --shadow-primary-hover: rgba(0, 0, 0, 0.4);
 
   --color-bg: #0F0D1A;
   --color-bg-secondary: #1A1726;
@@ -121,9 +115,6 @@
   --color-border: #2E2A42;
   --color-border-hover: #3D3856;
 
-  --color-shadow: rgba(0, 0, 0, 0.4);
-  --color-shadow-elevated: rgba(139, 92, 246, 0.2);
-
   --color-error: #F87171;
   --color-error-light: #2A1F1F;
   --color-success: #34D399;
@@ -132,7 +123,7 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 60px rgba(139, 92, 246, 0.3);
+  --shadow-glow: 0 0 60px var(--color-primary-glow);
 }
 
 /* ============================================
@@ -189,7 +180,7 @@ body::before {
 body::after {
   width: 400px;
   height: 400px;
-  background: rgba(236, 72, 153, 0.15);
+  background: var(--color-primary-glow);
   bottom: 100px;
   left: -100px;
 }
@@ -268,18 +259,18 @@ a:hover {
   justify-content: center;
   width: 38px;
   height: 38px;
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   color: white;
   font-size: 13px;
   font-weight: var(--font-weight-bold);
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 4px 12px var(--shadow-primary);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .nav__brand:hover .brand-badge {
   transform: rotate(-5deg) scale(1.05);
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 6px 20px var(--shadow-primary-hover);
 }
 
 .brand-name {
@@ -392,7 +383,7 @@ a:hover {
 .hero__title {
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -456,7 +447,7 @@ a:hover {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: var(--gradient-primary);
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border-radius: var(--radius-xl) 0 0 var(--radius-xl);
 }
 
@@ -479,7 +470,7 @@ a:hover {
   content: '';
   width: 8px;
   height: 8px;
-  background: var(--gradient-primary);
+  background: var(--color-primary);
   border-radius: 50%;
 }
 
@@ -811,9 +802,9 @@ a:hover {
 }
 
 .btn--primary {
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.35);
+  box-shadow: 0 4px 15px var(--shadow-primary);
   border-radius: var(--radius-full);
   position: relative;
   overflow: hidden;
@@ -830,7 +821,7 @@ a:hover {
 
 .btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.45);
+  box-shadow: 0 8px 25px var(--shadow-primary-hover);
 }
 
 .btn--primary:hover::before {
@@ -839,7 +830,7 @@ a:hover {
 
 .btn--primary:active {
   transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.35);
+  box-shadow: 0 4px 15px var(--shadow-primary);
 }
 
 .btn--secondary {
@@ -940,7 +931,7 @@ a:hover {
   transform: translateX(-50%);
   width: 100px;
   height: 3px;
-  background: var(--gradient-primary);
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border-radius: var(--radius-full);
 }
 
@@ -975,10 +966,10 @@ a:hover {
   left: 50%;
   transform: translateX(-50%) translateY(100px) scale(0.9);
   padding: var(--space-16) var(--space-32);
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border: none;
   border-radius: var(--radius-full);
-  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.35);
+  box-shadow: 0 8px 32px var(--shadow-primary-hover);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: white;

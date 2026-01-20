@@ -60,7 +60,7 @@
 
   /* Layout */
   --max-width-form: 720px;
-  --header-height: 56px;
+  --header-height: 48px;
   --strip-height: 28px;
 
   /* Border Radius */
@@ -166,7 +166,7 @@ a:hover {
   height: var(--header-height);
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
-  z-index: 100;
+  z-index: 1000;
   transition: background-color var(--transition-base);
 }
 
@@ -202,7 +202,9 @@ a:hover {
   display: flex;
   align-items: center;
   padding: 0 24px;
-  z-index: 101;
+  background-color: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1001;
 }
 
 .site-strip__link {

@@ -191,27 +191,22 @@ a:hover {
   opacity: 0.7;
 }
 
-/* Hub Link */
-.hub-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  margin-right: var(--space-8);
-  color: var(--color-text-tertiary);
-  border-radius: var(--radius-md);
-  transition: color var(--transition-fast), background-color var(--transition-fast);
-}
-
-.hub-link:hover {
-  color: var(--color-text);
+/* Site Strip - Cross-site navigation */
+.site-strip {
   background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-6) var(--space-24);
 }
 
-.hub-link svg {
-  width: 18px;
-  height: 18px;
+.site-strip__link {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+}
+
+.site-strip__link:hover {
+  color: var(--color-text-secondary);
+  text-decoration: underline;
 }
 
 .brand-badge {

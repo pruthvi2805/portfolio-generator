@@ -2,7 +2,7 @@
 
 A tool to create professional portfolio websites. Fill in your details, pick a theme, and download a ready-to-host ZIP file.
 
-**Live:** https://generator.kpruthvi.com
+**Live:** https://portfolio-builder.kpruthvi.com
 
 ## Structure
 

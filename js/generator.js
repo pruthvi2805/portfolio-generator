@@ -1021,10 +1021,10 @@ function initThemeToggle() {
 
     if (newTheme === 'light') {
       document.documentElement.removeAttribute('data-theme');
-      localStorage.removeItem('theme');
+      localStorage.removeItem('kp-theme');
     } else {
       document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
+      localStorage.setItem('kp-theme', newTheme);
     }
 
     // Re-apply the selected portfolio theme preview for the new mode

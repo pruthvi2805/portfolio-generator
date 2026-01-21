@@ -284,6 +284,31 @@ a:hover {
   color: var(--color-primary);
 }
 
+/* Nav Actions */
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+/* GitHub Link */
+.github-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.github-link:hover {
+  color: var(--color-text);
+  background-color: var(--color-bg-tertiary);
+}
+
 /* Theme Toggle */
 .theme-toggle {
   background: none;

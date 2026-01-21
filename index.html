@@ -6,10 +6,8 @@
   <link rel="canonical" href="https://portfolio-builder.kpruthvi.com/">
   <script>
     (function() {
-      var theme = localStorage.getItem('kp-theme');
-      if (theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-      }
+      var theme = localStorage.getItem('kp-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
   <meta name="description" content="Create your own professional portfolio in minutes. Pick a theme, fill in your details, and download a ready-to-host website.">

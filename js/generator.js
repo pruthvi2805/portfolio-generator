@@ -152,6 +152,12 @@ const LivePreviewManager = {
     if (expContainer) {
       expContainer.addEventListener('input', (e) => this.updateExperience());
     }
+
+    // Education fields - listen to dynamic entries
+    const eduContainer = document.getElementById('education-entries');
+    if (eduContainer) {
+      eduContainer.addEventListener('input', (e) => this.updateEducation());
+    }
   },
 
   setupFullPreviewButton() {
@@ -249,6 +255,29 @@ const LivePreviewManager = {
     if (titleEl) titleEl.textContent = title;
     if (companyEl) companyEl.textContent = company;
     if (dateEl) dateEl.textContent = dates;
+  },
+
+  updateEducation() {
+    const eduContainer = document.getElementById('education-entries');
+    if (!eduContainer) return;
+
+    // Get first education entry
+    const firstEntry = eduContainer.querySelector('.entry-card');
+
+    const degreeEl = document.getElementById('preview-edu-degree');
+    const schoolEl = document.getElementById('preview-edu-school');
+
+    if (!firstEntry) {
+      if (degreeEl) degreeEl.textContent = 'Degree';
+      if (schoolEl) schoolEl.textContent = 'University';
+      return;
+    }
+
+    const degree = firstEntry.querySelector('[name^="edu_degree_"]')?.value?.trim() || 'Degree';
+    const school = firstEntry.querySelector('[name^="edu_school_"]')?.value?.trim() || 'University';
+
+    if (degreeEl) degreeEl.textContent = degree;
+    if (schoolEl) schoolEl.textContent = school;
   },
 
   escapeHtml(str) {

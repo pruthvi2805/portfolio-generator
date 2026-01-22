@@ -591,12 +591,12 @@ button {
 }
 
 /* Coming Soon Theme Card - Hidden on mobile */
-.theme-preview--coming-soon {
+.theme-preview.theme-preview--coming-soon {
   display: none;
 }
 
 @media (min-width: 768px) {
-  .theme-preview--coming-soon {
+  .theme-preview.theme-preview--coming-soon {
     display: flex;
   }
 }

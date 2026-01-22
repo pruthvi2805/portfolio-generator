@@ -590,9 +590,15 @@ button {
   color: var(--text-secondary);
 }
 
-/* Coming Soon Theme Card */
+/* Coming Soon Theme Card - Hidden on mobile */
 .theme-preview--coming-soon {
-  grid-column: span 1;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .theme-preview--coming-soon {
+    display: flex;
+  }
 }
 
 .theme-preview__window--dashed {
@@ -631,6 +637,23 @@ button {
   line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/* Mobile Coming Soon Text */
+.themes-showcase__coming-soon-text {
+  display: block;
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: 1.5rem;
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .themes-showcase__coming-soon-text {
+    display: none;
+  }
 }
 
 /* Flow Section - Visual Timeline */
@@ -1401,7 +1424,7 @@ button {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -1409,19 +1432,56 @@ button {
   }
 }
 
-.animate-fade-in {
-  animation: fadeInUp 0.5s ease forwards;
+/* Landing Page Fade-in Animations */
+.landing .hero__eyebrow,
+.landing .hero__title,
+.landing .hero__subtitle,
+.landing .btn--glow,
+.landing .themes-showcase__title,
+.landing .theme-preview,
+.landing .themes-showcase__coming-soon-text,
+.landing .flow-step,
+.landing .flow-connector,
+.landing .trust-banner__content {
+  animation: fadeInUp 0.4s ease both;
 }
 
-.animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
-.animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
-.animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+/* Staggered delays for hero */
+.landing .hero__eyebrow { animation-delay: 0.1s; }
+.landing .hero__title { animation-delay: 0.2s; }
+.landing .hero__subtitle { animation-delay: 0.3s; }
+.landing .btn--glow { animation-delay: 0.4s; }
+
+/* Staggered delays for theme showcase */
+.landing .themes-showcase__title { animation-delay: 0.5s; }
+.landing .theme-preview:nth-child(1) { animation-delay: 0.55s; }
+.landing .theme-preview:nth-child(2) { animation-delay: 0.6s; }
+.landing .theme-preview:nth-child(3) { animation-delay: 0.65s; }
+.landing .theme-preview:nth-child(4) { animation-delay: 0.7s; }
+.landing .theme-preview:nth-child(5) { animation-delay: 0.75s; }
+.landing .themes-showcase__coming-soon-text { animation-delay: 0.75s; }
+
+/* Staggered delays for flow section */
+.landing .flow-step:nth-child(1) { animation-delay: 0.8s; }
+.landing .flow-connector:nth-child(2) { animation-delay: 0.85s; }
+.landing .flow-step:nth-child(3) { animation-delay: 0.9s; }
+.landing .flow-connector:nth-child(4) { animation-delay: 0.95s; }
+.landing .flow-step:nth-child(5) { animation-delay: 1.0s; }
+
+/* Trust banner */
+.landing .trust-banner__content { animation-delay: 1.1s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-in,
-  .animate-delay-1,
-  .animate-delay-2,
-  .animate-delay-3 {
+  .landing .hero__eyebrow,
+  .landing .hero__title,
+  .landing .hero__subtitle,
+  .landing .btn--glow,
+  .landing .themes-showcase__title,
+  .landing .theme-preview,
+  .landing .themes-showcase__coming-soon-text,
+  .landing .flow-step,
+  .landing .flow-connector,
+  .landing .trust-banner__content {
     animation: none;
     opacity: 1;
   }

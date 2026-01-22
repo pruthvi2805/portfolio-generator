@@ -95,6 +95,7 @@ const LivePreviewManager = {
 
     this.setupThemeListeners();
     this.setupFormListeners();
+    this.setupFullPreviewButton();
 
     // Set initial state
     const selectedTheme = document.querySelector('input[name="theme"]:checked');
@@ -125,10 +126,38 @@ const LivePreviewManager = {
       roleInput.addEventListener('input', (e) => this.updateRole(e.target.value));
     }
 
+    // Location field
+    const locationInput = document.getElementById('location');
+    if (locationInput) {
+      locationInput.addEventListener('input', (e) => this.updateLocation(e.target.value));
+    }
+
+    // Intro field
+    const introInput = document.getElementById('intro');
+    if (introInput) {
+      introInput.addEventListener('input', (e) => this.updateIntro(e.target.value));
+    }
+
     // Skills field
     const skillsInput = document.getElementById('skills');
     if (skillsInput) {
       skillsInput.addEventListener('input', (e) => this.updateSkills(e.target.value));
+    }
+
+    // Experience fields - listen to dynamic entries
+    const expContainer = document.getElementById('experience-entries');
+    if (expContainer) {
+      expContainer.addEventListener('input', (e) => this.updateExperience());
+    }
+  },
+
+  setupFullPreviewButton() {
+    const btn = document.getElementById('open-full-preview');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        // Trigger the existing preview functionality
+        document.getElementById('preview-btn')?.click();
+      });
     }
   },
 
@@ -148,25 +177,42 @@ const LivePreviewManager = {
   },
 
   updateName(name) {
+    const displayName = name.trim() || 'Your Name';
+    const initials = name.trim()
+      ? name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
+      : 'JD';
+
+    // Update all name elements
     const nameEl = document.getElementById('preview-name');
+    const navNameEl = document.getElementById('preview-nav-name');
     const avatarEl = document.getElementById('preview-avatar');
 
-    if (nameEl) {
-      nameEl.textContent = name.trim() || 'Your Name';
-    }
-
-    if (avatarEl) {
-      const initials = name.trim()
-        ? name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
-        : 'JD';
-      avatarEl.textContent = initials;
-    }
+    if (nameEl) nameEl.textContent = displayName;
+    if (navNameEl) navNameEl.textContent = displayName;
+    if (avatarEl) avatarEl.textContent = initials;
   },
 
   updateRole(role) {
     const roleEl = document.getElementById('preview-role');
+    const location = document.getElementById('location')?.value?.trim();
+
     if (roleEl) {
-      roleEl.textContent = role.trim() || 'Your Role';
+      let display = role.trim() || 'Your Role';
+      if (location) display += ` · ${location}`;
+      roleEl.textContent = display;
+    }
+  },
+
+  updateLocation(location) {
+    // Re-trigger role update to include location
+    const role = document.getElementById('role')?.value || '';
+    this.updateRole(role);
+  },
+
+  updateIntro(intro) {
+    const introEl = document.getElementById('preview-intro');
+    if (introEl) {
+      introEl.textContent = intro.trim() || 'Your introduction will appear here...';
     }
   },
 
@@ -175,10 +221,31 @@ const LivePreviewManager = {
     if (!skillsEl) return;
 
     const skills = skillsText
-      ? skillsText.split(',').map(s => s.trim()).filter(s => s).slice(0, 4)
+      ? skillsText.split(',').map(s => s.trim()).filter(s => s).slice(0, 5)
       : ['Skill 1', 'Skill 2', 'Skill 3'];
 
     skillsEl.innerHTML = skills.map(skill => `<span>${this.escapeHtml(skill)}</span>`).join('');
+  },
+
+  updateExperience() {
+    const expContainer = document.getElementById('experience-entries');
+    if (!expContainer) return;
+
+    // Get first experience entry
+    const firstEntry = expContainer.querySelector('.entry-card');
+    if (!firstEntry) return;
+
+    const title = firstEntry.querySelector('[name^="exp_title_"]')?.value?.trim() || 'Job Title';
+    const company = firstEntry.querySelector('[name^="exp_company_"]')?.value?.trim() || 'Company';
+    const dates = firstEntry.querySelector('[name^="exp_dates_"]')?.value?.trim() || 'Dates';
+
+    const titleEl = document.getElementById('preview-exp-title');
+    const companyEl = document.getElementById('preview-exp-company');
+    const dateEl = document.querySelector('.preview-card__exp-date');
+
+    if (titleEl) titleEl.textContent = title;
+    if (companyEl) companyEl.textContent = company;
+    if (dateEl) dateEl.textContent = dates;
   },
 
   escapeHtml(str) {
@@ -342,7 +409,11 @@ const FormManager = {
       // Sync preview with restored data
       if (draft.fullName) LivePreviewManager.updateName(draft.fullName);
       if (draft.role) LivePreviewManager.updateRole(draft.role);
+      if (draft.intro) LivePreviewManager.updateIntro(draft.intro);
       if (draft.skills) LivePreviewManager.updateSkills(draft.skills);
+
+      // Update experience preview after entries are added
+      setTimeout(() => LivePreviewManager.updateExperience(), 100);
 
       // Only show toast if there's meaningful data
       const hasContent = draft.fullName || draft.role || draft.intro || draft.email ||

@@ -299,34 +299,64 @@
           <div class="preview-card" id="live-preview" data-theme="minimal-light">
             <div class="preview-card__label">Live Preview</div>
             <div class="preview-card__window">
+              <!-- Mini Browser Chrome -->
               <div class="preview-card__browser">
                 <span></span><span></span><span></span>
               </div>
-              <div class="preview-card__header" id="preview-header">
-                <div class="preview-card__avatar" id="preview-avatar">JD</div>
-                <div class="preview-card__name" id="preview-name">Your Name</div>
-                <div class="preview-card__role" id="preview-role">Your Role</div>
-              </div>
-              <div class="preview-card__body">
-                <div class="preview-card__section">
-                  <div class="preview-card__section-title">Experience</div>
-                  <div class="preview-card__lines">
-                    <div class="preview-card__line"></div>
-                    <div class="preview-card__line preview-card__line--medium"></div>
+
+              <!-- Portfolio Preview Content -->
+              <div class="preview-card__content">
+                <!-- Mini Header -->
+                <div class="preview-card__nav">
+                  <div class="preview-card__nav-brand">
+                    <span class="preview-card__nav-badge" id="preview-avatar">JD</span>
+                    <span class="preview-card__nav-name" id="preview-nav-name">Your Name</span>
                   </div>
                 </div>
-                <div class="preview-card__section">
-                  <div class="preview-card__section-title">Skills</div>
-                  <div class="preview-card__pills" id="preview-skills">
-                    <span>Skill 1</span>
-                    <span>Skill 2</span>
-                    <span>Skill 3</span>
+
+                <!-- Mini Hero -->
+                <div class="preview-card__hero" id="preview-hero">
+                  <span class="preview-card__greeting">Hi, I'm</span>
+                  <div class="preview-card__name" id="preview-name">Your Name</div>
+                  <div class="preview-card__role" id="preview-role">Your Role</div>
+                  <div class="preview-card__intro" id="preview-intro">Your introduction will appear here...</div>
+                  <div class="preview-card__contact" id="preview-contact">
+                    <span class="preview-card__contact-item">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Mini Sections -->
+                <div class="preview-card__sections">
+                  <div class="preview-card__section">
+                    <div class="preview-card__section-title">Experience</div>
+                    <div class="preview-card__exp-item">
+                      <div class="preview-card__exp-header">
+                        <span class="preview-card__exp-title" id="preview-exp-title">Job Title</span>
+                        <span class="preview-card__exp-date">Dates</span>
+                      </div>
+                      <span class="preview-card__exp-company" id="preview-exp-company">Company</span>
+                    </div>
+                  </div>
+
+                  <div class="preview-card__section">
+                    <div class="preview-card__section-title">Skills</div>
+                    <div class="preview-card__skills" id="preview-skills">
+                      <span>Skill 1</span>
+                      <span>Skill 2</span>
+                      <span>Skill 3</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="preview-card__theme-name">
-              Theme: <span id="preview-theme-name">Minimal</span>
+            <div class="preview-card__footer">
+              <span class="preview-card__theme-label">Theme: <strong id="preview-theme-name">Minimal</strong></span>
+              <button type="button" id="open-full-preview" class="preview-card__btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Full Preview
+              </button>
             </div>
           </div>
         </aside>

@@ -1,5 +1,5 @@
 /**
- * Portfolio Generator - Main Application
+ * Portfolio Generator - Builder Functionality
  */
 
 // ============================================
@@ -77,29 +77,16 @@ const ToastManager = {
 };
 
 // ============================================
-// THEME PREVIEW MANAGER
+// THEME NAME MANAGER
 // ============================================
 
-const ThemePreviewManager = {
-  originalTheme: null,
-  styleElement: null,
-
+const ThemeNameManager = {
   init() {
-    // Store the original page theme
-    this.originalTheme = document.documentElement.getAttribute('data-theme');
-
-    // Create a style element for theme preview
-    this.styleElement = document.createElement('style');
-    this.styleElement.id = 'theme-preview-styles';
-    document.head.appendChild(this.styleElement);
-
-    // Set up theme card click handlers
     this.setupThemeCards();
 
-    // Apply initial theme (warm is the default for this page, but check selected)
+    // Set initial theme name display
     const selectedTheme = document.querySelector('input[name="theme"]:checked');
     if (selectedTheme) {
-      this.applyThemePreview(selectedTheme.value);
       this.updateThemeNameDisplay(selectedTheme.value);
     }
   },
@@ -108,7 +95,6 @@ const ThemePreviewManager = {
     const themeCards = document.querySelectorAll('.theme-btn input[name="theme"]');
     themeCards.forEach(input => {
       input.addEventListener('change', (e) => {
-        this.applyThemePreview(e.target.value);
         this.updateThemeNameDisplay(e.target.value);
       });
     });
@@ -126,30 +112,6 @@ const ThemePreviewManager = {
     };
 
     themeNameElement.textContent = themeNames[themeId] || themeId;
-  },
-
-  applyThemePreview(themeId) {
-    const theme = THEMES[themeId];
-    if (!theme) return;
-
-    // Determine if we're in dark mode or light mode for preview
-    const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-    const vars = isDarkMode ? theme.dark : theme.light;
-
-    // Build CSS variables string
-    const cssVars = Object.entries(vars)
-      .map(([key, value]) => `${key}: ${value};`)
-      .join('\n  ');
-
-    // Apply to root
-    this.styleElement.textContent = `
-      :root {
-        ${Object.entries(theme.light).map(([key, value]) => `${key}: ${value};`).join('\n        ')}
-      }
-      [data-theme="dark"] {
-        ${Object.entries(theme.dark).map(([key, value]) => `${key}: ${value};`).join('\n        ')}
-      }
-    `;
   }
 };
 
@@ -169,6 +131,8 @@ const FormManager = {
 
   init() {
     this.form = document.getElementById('portfolio-form');
+    if (!this.form) return; // Not on builder page
+
     this.experienceContainer = document.getElementById('experience-entries');
     this.educationContainer = document.getElementById('education-entries');
     this.certificationContainer = document.getElementById('certification-entries');
@@ -180,17 +144,17 @@ const FormManager = {
 
   setupEventListeners() {
     // Add experience button
-    document.getElementById('add-experience').addEventListener('click', () => {
+    document.getElementById('add-experience')?.addEventListener('click', () => {
       this.addExperienceEntry();
     });
 
     // Add education button
-    document.getElementById('add-education').addEventListener('click', () => {
+    document.getElementById('add-education')?.addEventListener('click', () => {
       this.addEducationEntry();
     });
 
     // Add certification button
-    document.getElementById('add-certification').addEventListener('click', () => {
+    document.getElementById('add-certification')?.addEventListener('click', () => {
       this.addCertificationEntry();
     });
 
@@ -201,12 +165,12 @@ const FormManager = {
     });
 
     // Preview button
-    document.getElementById('preview-btn').addEventListener('click', () => {
+    document.getElementById('preview-btn')?.addEventListener('click', () => {
       this.handlePreview();
     });
 
     // Remove entry handlers (delegated)
-    this.experienceContainer.addEventListener('click', (e) => {
+    this.experienceContainer?.addEventListener('click', (e) => {
       if (e.target.closest('.entry-card__remove')) {
         const card = e.target.closest('.entry-card');
         if (card && this.experienceContainer.children.length > 1) {
@@ -217,7 +181,7 @@ const FormManager = {
       }
     });
 
-    this.educationContainer.addEventListener('click', (e) => {
+    this.educationContainer?.addEventListener('click', (e) => {
       if (e.target.closest('.entry-card__remove')) {
         const card = e.target.closest('.entry-card');
         if (card) {
@@ -228,7 +192,7 @@ const FormManager = {
       }
     });
 
-    this.certificationContainer.addEventListener('click', (e) => {
+    this.certificationContainer?.addEventListener('click', (e) => {
       if (e.target.closest('.entry-card__remove')) {
         const card = e.target.closest('.entry-card');
         if (card) {
@@ -293,12 +257,12 @@ const FormManager = {
         });
       }
 
-      // Restore theme and apply preview
+      // Restore theme selection
       if (draft.theme) {
         const themeInput = document.querySelector(`input[name="theme"][value="${draft.theme}"]`);
         if (themeInput) {
           themeInput.checked = true;
-          ThemePreviewManager.applyThemePreview(draft.theme);
+          ThemeNameManager.updateThemeNameDisplay(draft.theme);
         }
       }
 
@@ -351,7 +315,7 @@ const FormManager = {
           <span class="form-field__error"></span>
         </div>
       </div>
-      <div class="form-field form-field--full">
+      <div class="form-field form-field--full" style="margin-top: 1rem;">
         <label>Key Responsibilities (one per line) <span class="required">*</span></label>
         <textarea name="exp_bullets_${index}" required rows="4" placeholder="Led development of customer-facing features&#10;Improved system performance by 40%&#10;Mentored junior developers">${escapeAttr(data.bullets ? data.bullets.join('\n') : '')}</textarea>
         <span class="form-field__error"></span>
@@ -377,17 +341,17 @@ const FormManager = {
           </svg>
         </button>
       </div>
-      <div class="form-grid">
+      <div class="form-grid form-grid--3">
         <div class="form-field">
           <label>Degree</label>
-          <input type="text" name="edu_degree_${index}" placeholder="Bachelor of Science in Computer Science" value="${escapeAttr(data.degree || '')}">
+          <input type="text" name="edu_degree_${index}" placeholder="B.S. Computer Science" value="${escapeAttr(data.degree || '')}">
         </div>
         <div class="form-field">
           <label>School / University</label>
           <input type="text" name="edu_school_${index}" placeholder="University of Amsterdam" value="${escapeAttr(data.school || '')}">
         </div>
         <div class="form-field">
-          <label>Graduation Year</label>
+          <label>Year</label>
           <input type="text" name="edu_year_${index}" placeholder="2020" value="${escapeAttr(data.year || '')}">
         </div>
       </div>
@@ -412,7 +376,7 @@ const FormManager = {
           </svg>
         </button>
       </div>
-      <div class="form-grid">
+      <div class="form-grid form-grid--3">
         <div class="form-field">
           <label>Certification Name</label>
           <input type="text" name="cert_name_${index}" placeholder="AWS Solutions Architect" value="${escapeAttr(data.name || '')}">
@@ -1008,34 +972,6 @@ const ZipBuilder = {
 };
 
 // ============================================
-// THEME TOGGLE
-// ============================================
-
-function initThemeToggle() {
-  const toggle = document.querySelector('.theme-toggle');
-  if (!toggle) return;
-
-  toggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-    if (newTheme === 'light') {
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.removeItem('kp-theme');
-    } else {
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('kp-theme', newTheme);
-    }
-
-    // Re-apply the selected portfolio theme preview for the new mode
-    const selectedTheme = document.querySelector('input[name="theme"]:checked');
-    if (selectedTheme) {
-      ThemePreviewManager.applyThemePreview(selectedTheme.value);
-    }
-  });
-}
-
-// ============================================
 // UTILITY FUNCTIONS
 // ============================================
 
@@ -1062,7 +998,6 @@ function slugify(str) {
 
 document.addEventListener('DOMContentLoaded', () => {
   ToastManager.init();
-  ThemePreviewManager.init();
+  ThemeNameManager.init();
   FormManager.init();
-  initThemeToggle();
 });

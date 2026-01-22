@@ -4,240 +4,610 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://portfolio-builder.kpruthvi.com/">
+
+  <!-- Prevent flash of wrong theme -->
   <script>
     (function() {
-      var theme = localStorage.getItem('kp-theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', theme);
+      var theme = localStorage.getItem('kp-theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
     })();
   </script>
-  <meta name="description" content="Create your own professional portfolio in minutes. Pick a theme, fill in your details, and download a ready-to-host website.">
+
+  <title>Portfolio Builder - Create Professional Portfolios</title>
+  <meta name="description" content="Create stunning portfolio websites in minutes. Fill in your details, choose a theme, and download ready-to-host files. 100% free, runs entirely in your browser.">
   <meta name="author" content="Pruthvi Kauticwar">
   <meta name="robots" content="index, follow">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://portfolio-builder.kpruthvi.com/">
-  <meta property="og:title" content="Portfolio Builder - Create Your Portfolio">
-  <meta property="og:description" content="Create your own professional portfolio in minutes. Pick a theme, fill in your details, and download ready-to-host files.">
+  <meta property="og:title" content="Portfolio Builder - Create Professional Portfolios">
+  <meta property="og:description" content="Create stunning portfolio websites in minutes. 100% free, runs entirely in your browser. No signup required.">
 
-  <title>Portfolio Builder - Create Your Portfolio</title>
+  <meta name="theme-color" content="#F8FAFB" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)">
 
-  <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1A1A1A" media="(prefers-color-scheme: dark)">
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22 fill=%22none%22><rect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231A1A1A%22/><rect x=%226%22 y=%2214%22 width=%2220%22 height=%2212%22 rx=%222%22 stroke=%22%23B45309%22 stroke-width=%222%22/><rect x=%229%22 y=%228%22 width=%2214%22 height=%2210%22 rx=%222%22 stroke=%22%23B45309%22 stroke-width=%222%22/><rect x=%2212%22 y=%224%22 width=%228%22 height=%228%22 rx=%222%22 stroke=%22%23B45309%22 stroke-width=%222%22/></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22 fill=%22none%22><rect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230D9488%22/><path d=%22M8 22V10l8-4 8 4v12l-8 4-8-4z%22 stroke=%22white%22 stroke-width=%222%22 fill=%22none%22/><path d=%22M8 10l8 4 8-4M16 14v12%22 stroke=%22white%22 stroke-width=%222%22/></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/generator.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <nav class="nav">
-      <a href="index.html" class="nav__brand">
-        <span class="brand-badge">PB</span>
-        <span class="brand-name">Portfolio Builder</span>
-      </a>
-      <div class="nav__actions">
-        <button class="theme-toggle" aria-label="Toggle dark mode">
-          <span class="theme-toggle__icon"></span>
-        </button>
-        <a href="https://github.com/pruthvi2805/portfolio-generator" target="_blank" rel="noopener noreferrer" class="github-link" aria-label="View on GitHub">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
+  <!-- ============================================
+       LANDING PAGE VIEW
+       ============================================ -->
+  <div id="landing-view" class="view landing active">
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="#" class="nav__brand" data-nav="landing">
+          <span class="brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19V5l8-3 8 3v14l-8 3-8-3z"/>
+              <path d="M4 5l8 3 8-3M12 8v14"/>
+            </svg>
+          </span>
+          <span class="brand-name">Portfolio Builder</span>
         </a>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <h1 class="hero__title">Create Your Portfolio</h1>
-      <p class="hero__subtitle">Pick a theme, fill in your details, and download a ready-to-host portfolio website.</p>
-    </section>
-
-    <!-- Generator Form -->
-    <form id="portfolio-form" class="generator-form" novalidate>
-
-      <!-- Basic Info Section (with Theme Picker) -->
-      <section class="form-section">
-        <div class="theme-field" id="theme-section">
-          <label class="theme-field__label">Theme</label>
-          <div class="theme-buttons" role="radiogroup" aria-label="Select a theme">
-            <label class="theme-btn" data-theme="minimal-light">
-              <input type="radio" name="theme" value="minimal-light" checked>
-              <span class="theme-btn__dot" style="background: #666666;"></span>
-              <span class="theme-btn__name">Minimal</span>
-            </label>
-            <label class="theme-btn" data-theme="forest">
-              <input type="radio" name="theme" value="forest">
-              <span class="theme-btn__dot" style="background: #5B8A72;"></span>
-              <span class="theme-btn__name">Forest</span>
-            </label>
-            <label class="theme-btn" data-theme="warm">
-              <input type="radio" name="theme" value="warm">
-              <span class="theme-btn__dot" style="background: #C17B5F;"></span>
-              <span class="theme-btn__name">Warm</span>
-            </label>
-            <label class="theme-btn" data-theme="cool">
-              <input type="radio" name="theme" value="cool">
-              <span class="theme-btn__dot" style="background: #4A7C9B;"></span>
-              <span class="theme-btn__name">Cool</span>
-            </label>
-          </div>
-        </div>
-        <h2 class="form-section__title">Basic Info</h2>
-        <div class="form-grid">
-          <div class="form-field">
-            <label for="fullName">Full Name <span class="required">*</span></label>
-            <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
-            <span class="form-field__error"></span>
-          </div>
-          <div class="form-field">
-            <label for="role">Role / Title <span class="required">*</span></label>
-            <input type="text" id="role" name="role" required placeholder="Software Engineer">
-            <span class="form-field__error"></span>
-          </div>
-          <div class="form-field">
-            <label for="location">Location <span class="required">*</span></label>
-            <input type="text" id="location" name="location" required placeholder="Amsterdam, Netherlands">
-            <span class="form-field__error"></span>
-          </div>
-        </div>
-        <div class="form-field form-field--full">
-          <label for="intro">Short Intro <span class="required">*</span></label>
-          <textarea id="intro" name="intro" required rows="3" placeholder="Write 2-3 sentences about yourself and what you do..."></textarea>
-          <span class="form-field__error"></span>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section class="form-section">
-        <h2 class="form-section__title">Contact</h2>
-        <div class="form-grid">
-          <div class="form-field">
-            <label for="email">Email <span class="required">*</span></label>
-            <input type="email" id="email" name="email" required placeholder="john@example.com">
-            <span class="form-field__error"></span>
-          </div>
-          <div class="form-field">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" placeholder="+31 6 1234 5678">
-          </div>
-          <div class="form-field">
-            <label for="website">Website</label>
-            <input type="url" id="website" name="website" placeholder="https://johndoe.com">
-          </div>
-          <div class="form-field">
-            <label for="linkedin">LinkedIn URL</label>
-            <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/johndoe">
-          </div>
-          <div class="form-field">
-            <label for="github">GitHub URL</label>
-            <input type="url" id="github" name="github" placeholder="https://github.com/johndoe">
-          </div>
-        </div>
-      </section>
-
-      <!-- Experience Section -->
-      <section class="form-section">
-        <h2 class="form-section__title">Work Experience</h2>
-        <p class="form-section__hint">Add at least one experience entry.</p>
-
-        <div id="experience-entries" class="dynamic-entries">
-          <!-- Experience entries will be added here -->
-        </div>
-
-        <button type="button" id="add-experience" class="btn btn--secondary btn--add">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M5 12h14"/>
-          </svg>
-          Add Experience
-        </button>
-      </section>
-
-      <!-- Skills Section -->
-      <section class="form-section">
-        <h2 class="form-section__title">Skills</h2>
-        <div class="form-field form-field--full">
-          <label for="skills">Skills</label>
-          <textarea id="skills" name="skills" rows="2" placeholder="JavaScript, React, Node.js, Python, AWS (comma-separated)"></textarea>
-          <span class="form-field__hint">Enter skills separated by commas</span>
-        </div>
-      </section>
-
-      <!-- Education Section -->
-      <section class="form-section">
-        <h2 class="form-section__title">Education</h2>
-
-        <div id="education-entries" class="dynamic-entries">
-          <!-- Education entries will be added here -->
-        </div>
-
-        <button type="button" id="add-education" class="btn btn--secondary btn--add">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M5 12h14"/>
-          </svg>
-          Add Education
-        </button>
-      </section>
-
-      <!-- Certifications Section -->
-      <section class="form-section">
-        <h2 class="form-section__title">Certifications</h2>
-
-        <div id="certification-entries" class="dynamic-entries">
-          <!-- Certification entries will be added here -->
-        </div>
-
-        <button type="button" id="add-certification" class="btn btn--secondary btn--add">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M5 12h14"/>
-          </svg>
-          Add Certification
-        </button>
-      </section>
-
-      <!-- Action Buttons -->
-      <div class="form-actions">
-        <div class="form-actions__buttons">
-          <button type="button" id="preview-btn" class="btn btn--secondary btn--large">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-              <circle cx="12" cy="12" r="3"></circle>
+        <div class="nav__actions">
+          <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">
+            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
-            Preview
-          </button>
-          <button type="submit" class="btn btn--primary btn--large">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
+            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
             </svg>
-            Download ZIP
           </button>
+          <a href="https://github.com/pruthvi2805/portfolio-generator" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="View on GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
         </div>
-        <p class="form-actions__theme-reminder">
-          Theme: <span id="selected-theme-name">Minimal</span>
-          <a href="#theme-section" class="change-theme-link">Change</a>
-        </p>
-        <p class="form-actions__hint">Preview your portfolio first, then download when ready.</p>
-      </div>
+      </nav>
+    </header>
 
-    </form>
-  </main>
+    <div class="landing__content">
+      <!-- Hero Section - Centered, Bold -->
+      <section class="hero">
+        <div class="hero__bg-shapes">
+          <div class="hero__shape hero__shape--1"></div>
+          <div class="hero__shape hero__shape--2"></div>
+          <div class="hero__shape hero__shape--3"></div>
+        </div>
+        <div class="hero__container">
+          <p class="hero__eyebrow">No signup &middot; 100% private &middot; Free forever</p>
+          <h1 class="hero__title">
+            <span class="hero__title-line">Your story.</span>
+            <span class="hero__title-line hero__title-line--gradient">One page.</span>
+          </h1>
+          <p class="hero__subtitle">Build a stunning portfolio website in minutes.<br>Fill in your details, pick a theme, download, and host anywhere.</p>
+          <a href="#builder" class="btn btn--primary btn--glow" data-nav="builder">
+            Start Building
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+          <span>Scroll to explore</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+          </svg>
+        </div>
+      </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer__content">
-      <p class="footer__text">&copy; 2026 Pruthvi Kauticwar · <a href="https://www.kpruthvi.com">kpruthvi.com</a> · <a href="https://kpruthvi.com/contact" target="_blank" rel="noopener noreferrer">Contact</a></p>
+      <!-- Theme Showcase - Visual Preview -->
+      <section class="themes-showcase">
+        <h2 class="themes-showcase__title">Pick your style</h2>
+        <div class="themes-showcase__grid">
+          <div class="theme-preview theme-preview--minimal">
+            <div class="theme-preview__window">
+              <div class="theme-preview__dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="theme-preview__content">
+                <div class="theme-preview__header" style="background: #666;"></div>
+                <div class="theme-preview__body">
+                  <div class="theme-preview__line"></div>
+                  <div class="theme-preview__line theme-preview__line--short"></div>
+                </div>
+              </div>
+            </div>
+            <span class="theme-preview__name">Minimal</span>
+          </div>
+          <div class="theme-preview theme-preview--forest">
+            <div class="theme-preview__window">
+              <div class="theme-preview__dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="theme-preview__content">
+                <div class="theme-preview__header" style="background: #5B8A72;"></div>
+                <div class="theme-preview__body">
+                  <div class="theme-preview__line"></div>
+                  <div class="theme-preview__line theme-preview__line--short"></div>
+                </div>
+              </div>
+            </div>
+            <span class="theme-preview__name">Forest</span>
+          </div>
+          <div class="theme-preview theme-preview--warm">
+            <div class="theme-preview__window">
+              <div class="theme-preview__dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="theme-preview__content">
+                <div class="theme-preview__header" style="background: #C17B5F;"></div>
+                <div class="theme-preview__body">
+                  <div class="theme-preview__line"></div>
+                  <div class="theme-preview__line theme-preview__line--short"></div>
+                </div>
+              </div>
+            </div>
+            <span class="theme-preview__name">Warm</span>
+          </div>
+          <div class="theme-preview theme-preview--cool">
+            <div class="theme-preview__window">
+              <div class="theme-preview__dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="theme-preview__content">
+                <div class="theme-preview__header" style="background: #4A7C9B;"></div>
+                <div class="theme-preview__body">
+                  <div class="theme-preview__line"></div>
+                  <div class="theme-preview__line theme-preview__line--short"></div>
+                </div>
+              </div>
+            </div>
+            <span class="theme-preview__name">Cool</span>
+          </div>
+          <!-- Coming Soon Card -->
+          <div class="theme-preview theme-preview--coming-soon">
+            <div class="theme-preview__window theme-preview__window--dashed">
+              <div class="theme-preview__coming-soon-content">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                <span>More styles<br>coming soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Flow Section - Visual Timeline -->
+      <section class="flow-section">
+        <div class="flow-section__container">
+          <div class="flow-step">
+            <div class="flow-step__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </div>
+            <span class="flow-step__label">Fill</span>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-step__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <span class="flow-step__label">Preview</span>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-step__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </div>
+            <span class="flow-step__label">Download</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust Banner -->
+      <section class="trust-banner">
+        <div class="trust-banner__content">
+          <div class="trust-banner__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="trust-banner__text">
+            <strong>Your data never leaves your browser.</strong>
+            <span>Everything runs locally. No servers, no accounts, no tracking.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer__content">
+          <p class="footer__text">&copy; 2026 <a href="https://www.kpruthvi.com">Pruthvi Kauticwar</a></p>
+          <div class="footer__links">
+            <a href="#privacy" data-nav="privacy">Privacy</a>
+            <a href="https://github.com/pruthvi2805/portfolio-generator" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+      </footer>
     </div>
-  </footer>
+  </div>
+
+  <!-- ============================================
+       BUILDER PAGE VIEW
+       ============================================ -->
+  <div id="builder-view" class="view builder">
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="#" class="nav__brand" data-nav="landing">
+          <span class="brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19V5l8-3 8 3v14l-8 3-8-3z"/>
+              <path d="M4 5l8 3 8-3M12 8v14"/>
+            </svg>
+          </span>
+          <span class="brand-name">Portfolio Builder</span>
+        </a>
+        <div class="nav__actions">
+          <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">
+            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+          </button>
+          <a href="https://github.com/pruthvi2805/portfolio-generator" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="View on GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="builder__content">
+      <!-- Builder Hero -->
+      <div class="builder__hero">
+        <h1 class="builder__title">Create Your Portfolio</h1>
+        <p class="builder__subtitle">Fill in your details, preview, and download your portfolio website.</p>
+      </div>
+
+      <!-- Generator Form -->
+      <form id="portfolio-form" class="builder__form" novalidate>
+
+        <!-- Basic Info Section (with Theme Picker) -->
+        <section class="form-section">
+          <div class="theme-selector" id="theme-section">
+            <label class="theme-selector__label">Choose a Theme</label>
+            <div class="theme-buttons" role="radiogroup" aria-label="Select a theme">
+              <label class="theme-btn" data-theme="minimal-light">
+                <input type="radio" name="theme" value="minimal-light" checked>
+                <span class="theme-btn__dot" style="background: #666666;"></span>
+                <span class="theme-btn__name">Minimal</span>
+              </label>
+              <label class="theme-btn" data-theme="forest">
+                <input type="radio" name="theme" value="forest">
+                <span class="theme-btn__dot" style="background: #5B8A72;"></span>
+                <span class="theme-btn__name">Forest</span>
+              </label>
+              <label class="theme-btn" data-theme="warm">
+                <input type="radio" name="theme" value="warm">
+                <span class="theme-btn__dot" style="background: #C17B5F;"></span>
+                <span class="theme-btn__name">Warm</span>
+              </label>
+              <label class="theme-btn" data-theme="cool">
+                <input type="radio" name="theme" value="cool">
+                <span class="theme-btn__dot" style="background: #4A7C9B;"></span>
+                <span class="theme-btn__name">Cool</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section__header">
+            <h2 class="form-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              Basic Info
+            </h2>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="fullName">Full Name <span class="required">*</span></label>
+              <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
+              <span class="form-field__error"></span>
+            </div>
+            <div class="form-field">
+              <label for="role">Role / Title <span class="required">*</span></label>
+              <input type="text" id="role" name="role" required placeholder="Software Engineer">
+              <span class="form-field__error"></span>
+            </div>
+            <div class="form-field">
+              <label for="location">Location <span class="required">*</span></label>
+              <input type="text" id="location" name="location" required placeholder="Amsterdam, Netherlands">
+              <span class="form-field__error"></span>
+            </div>
+          </div>
+          <div class="form-field form-field--full" style="margin-top: 1.25rem;">
+            <label for="intro">Short Intro <span class="required">*</span></label>
+            <textarea id="intro" name="intro" required rows="3" placeholder="Write 2-3 sentences about yourself and what you do..."></textarea>
+            <span class="form-field__error"></span>
+          </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="form-section">
+          <div class="form-section__header">
+            <h2 class="form-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              Contact
+            </h2>
+          </div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="email">Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="john@example.com">
+              <span class="form-field__error"></span>
+            </div>
+            <div class="form-field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="+31 6 1234 5678">
+            </div>
+            <div class="form-field">
+              <label for="website">Website</label>
+              <input type="url" id="website" name="website" placeholder="https://johndoe.com">
+            </div>
+            <div class="form-field">
+              <label for="linkedin">LinkedIn URL</label>
+              <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/johndoe">
+            </div>
+            <div class="form-field">
+              <label for="github">GitHub URL</label>
+              <input type="url" id="github" name="github" placeholder="https://github.com/johndoe">
+            </div>
+          </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="form-section">
+          <div class="form-section__header">
+            <h2 class="form-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+              Work Experience
+            </h2>
+            <p class="form-section__hint">Add at least one experience entry.</p>
+          </div>
+
+          <div id="experience-entries" class="dynamic-entries">
+            <!-- Experience entries will be added here -->
+          </div>
+
+          <button type="button" id="add-experience" class="btn btn--secondary btn--add">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Add Experience
+          </button>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="form-section">
+          <div class="form-section__header">
+            <h2 class="form-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              Skills
+            </h2>
+          </div>
+          <div class="form-field form-field--full">
+            <label for="skills">Skills</label>
+            <textarea id="skills" name="skills" rows="2" placeholder="JavaScript, React, Node.js, Python, AWS (comma-separated)"></textarea>
+            <span class="form-field__hint">Enter skills separated by commas</span>
+          </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="form-section">
+          <div class="form-section__header">
+            <h2 class="form-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+              Education
+            </h2>
+          </div>
+
+          <div id="education-entries" class="dynamic-entries">
+            <!-- Education entries will be added here -->
+          </div>
+
+          <button type="button" id="add-education" class="btn btn--secondary btn--add">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Add Education
+          </button>
+        </section>
+
+        <!-- Certifications Section -->
+        <section class="form-section">
+          <div class="form-section__header">
+            <h2 class="form-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="8" r="7"/>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+              </svg>
+              Certifications
+            </h2>
+          </div>
+
+          <div id="certification-entries" class="dynamic-entries">
+            <!-- Certification entries will be added here -->
+          </div>
+
+          <button type="button" id="add-certification" class="btn btn--secondary btn--add">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Add Certification
+          </button>
+        </section>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <div class="form-actions__buttons">
+            <button type="button" id="preview-btn" class="btn btn--secondary btn--large">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              Preview
+            </button>
+            <button type="submit" class="btn btn--primary btn--large">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Download ZIP
+            </button>
+          </div>
+          <p class="form-actions__theme-reminder">
+            Theme: <span id="selected-theme-name">Minimal</span>
+            <button type="button" class="change-theme-link" onclick="document.getElementById('theme-section').scrollIntoView({behavior: 'smooth', block: 'center'})">Change</button>
+          </p>
+          <p class="form-actions__hint">Preview your portfolio first, then download when ready.</p>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__content">
+        <p class="footer__text">&copy; 2026 <a href="https://www.kpruthvi.com">Pruthvi Kauticwar</a></p>
+        <div class="footer__links">
+          <a href="#privacy" data-nav="privacy">Privacy</a>
+          <a href="https://github.com/pruthvi2805/portfolio-generator" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============================================
+       PRIVACY PAGE VIEW
+       ============================================ -->
+  <div id="privacy-view" class="view privacy">
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="#" class="nav__brand" data-nav="landing">
+          <span class="brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19V5l8-3 8 3v14l-8 3-8-3z"/>
+              <path d="M4 5l8 3 8-3M12 8v14"/>
+            </svg>
+          </span>
+          <span class="brand-name">Portfolio Builder</span>
+        </a>
+        <div class="nav__actions">
+          <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">
+            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+          </button>
+          <a href="https://github.com/pruthvi2805/portfolio-generator" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="View on GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="privacy__content">
+      <div class="privacy__container">
+        <h1 class="privacy__title">Privacy Policy</h1>
+        <p class="privacy__subtitle">Your data stays on your device. Always.</p>
+
+        <div class="privacy__highlight">
+          <p>Portfolio Builder runs 100% in your browser. We never collect, store, or transmit any of your personal information.</p>
+        </div>
+
+        <div class="privacy__section">
+          <h2>No Data Collection</h2>
+          <p>All portfolio data you enter remains exclusively in your browser's local storage. We have no servers that receive or store your information. When you download your portfolio, the files are generated entirely on your device.</p>
+        </div>
+
+        <div class="privacy__section">
+          <h2>No Tracking</h2>
+          <p>We don't use analytics, cookies, or any tracking mechanisms. Your browsing activity on this site is completely private.</p>
+        </div>
+
+        <div class="privacy__section">
+          <h2>No Account Required</h2>
+          <p>You don't need to create an account or provide any personal information to use Portfolio Builder. Just open the site and start building.</p>
+        </div>
+
+        <div class="privacy__section">
+          <h2>Local Storage</h2>
+          <p>Your draft portfolio data is saved to your browser's local storage so you can continue where you left off. This data never leaves your device and can be cleared at any time through your browser settings.</p>
+        </div>
+
+        <div class="privacy__section">
+          <h2>Open Source</h2>
+          <p>Portfolio Builder is open source. You can verify our privacy practices by reviewing the code on <a href="https://github.com/pruthvi2805/portfolio-generator" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+        </div>
+
+        <div class="privacy__section" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+          <p style="color: var(--text-muted);">Questions? Contact us at <a href="https://kpruthvi.com/contact" target="_blank" rel="noopener noreferrer">kpruthvi.com/contact</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__content">
+        <p class="footer__text">&copy; 2026 <a href="https://www.kpruthvi.com">Pruthvi Kauticwar</a></p>
+        <div class="footer__links">
+          <a href="#" data-nav="landing">Home</a>
+          <a href="https://github.com/pruthvi2805/portfolio-generator" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </div>
 
   <!-- Status Toast -->
   <div id="toast" class="toast" role="alert" aria-live="polite"></div>
@@ -247,6 +617,7 @@
   <script src="libs/FileSaver.min.js" defer></script>
 
   <!-- App Scripts -->
+  <script src="js/app.js" defer></script>
   <script src="js/themes.js" defer></script>
   <script src="js/templates.js" defer></script>
   <script src="js/generator.js" defer></script>

@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://portfolio-builder.kpruthvi.com/">
 
-  <!-- Prevent flash of wrong theme -->
+  <!-- Prevent flash of wrong theme - defaults to dark -->
   <script>
     (function() {
       var theme = localStorage.getItem('kp-theme');
-      if (theme === 'dark') {
+      if (theme !== 'light') {
         document.documentElement.classList.add('dark');
       }
     })();

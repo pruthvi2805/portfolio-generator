@@ -87,10 +87,10 @@ const ThemeManager = {
   setTheme(isDark) {
     if (isDark) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem(this.STORAGE_KEY, 'dark');
+      localStorage.removeItem(this.STORAGE_KEY); // dark is default, no need to store
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.removeItem(this.STORAGE_KEY);
+      localStorage.setItem(this.STORAGE_KEY, 'light'); // only store if user chooses light
     }
   },
 

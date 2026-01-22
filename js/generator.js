@@ -64,15 +64,18 @@ const ToastManager = {
       this.element.classList.add('toast--success');
     } else if (type === 'error') {
       this.element.classList.add('toast--error');
+    } else if (type === 'subtle') {
+      this.element.classList.add('toast--subtle');
     }
 
     // Show toast
     this.element.classList.add('show');
 
-    // Auto hide after 4 seconds
+    // Auto hide - shorter for subtle messages
+    const duration = type === 'subtle' ? 2000 : 4000;
     this.timeout = setTimeout(() => {
       this.element.classList.remove('show');
-    }, 4000);
+    }, duration);
   }
 };
 
@@ -419,7 +422,7 @@ const FormManager = {
       const hasContent = draft.fullName || draft.role || draft.intro || draft.email ||
         (draft.experiences && draft.experiences.some(exp => exp.title || exp.company));
       if (hasContent) {
-        ToastManager.show('Draft restored', 'success');
+        ToastManager.show('Draft restored', 'subtle');
       }
     } else {
       // Add default empty experience

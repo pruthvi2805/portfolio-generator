@@ -1232,11 +1232,25 @@ button {
 }
 
 .preview-card__name {
-  font-size: 13px;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  color: #666666;
   margin-bottom: 2px;
   transition: color 0.3s ease;
+  position: relative;
+  padding-bottom: 6px;
+}
+
+.preview-card__name::after {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, currentColor, transparent);
+  margin: 4px auto 0;
+  border-radius: 1px;
 }
 
 .preview-card__role {
@@ -1392,6 +1406,7 @@ button {
 
 /* Theme-specific preview colors */
 .preview-card[data-theme="minimal-light"] .preview-card__nav-badge { background: #666666; }
+.preview-card[data-theme="minimal-light"] .preview-card__name { color: #666666; }
 .preview-card[data-theme="minimal-light"] .preview-card__role { color: #666666; }
 .preview-card[data-theme="minimal-light"] .preview-card__section-title { color: #666666; }
 .preview-card[data-theme="minimal-light"] .preview-card__skills span {
@@ -1400,6 +1415,7 @@ button {
 }
 
 .preview-card[data-theme="forest"] .preview-card__nav-badge { background: #5B8A72; }
+.preview-card[data-theme="forest"] .preview-card__name { color: #5B8A72; }
 .preview-card[data-theme="forest"] .preview-card__role { color: #5B8A72; }
 .preview-card[data-theme="forest"] .preview-card__section-title { color: #5B8A72; }
 .preview-card[data-theme="forest"] .preview-card__skills span {
@@ -1408,6 +1424,7 @@ button {
 }
 
 .preview-card[data-theme="warm"] .preview-card__nav-badge { background: #C17B5F; }
+.preview-card[data-theme="warm"] .preview-card__name { color: #C17B5F; }
 .preview-card[data-theme="warm"] .preview-card__role { color: #C17B5F; }
 .preview-card[data-theme="warm"] .preview-card__section-title { color: #C17B5F; }
 .preview-card[data-theme="warm"] .preview-card__skills span {
@@ -1416,6 +1433,7 @@ button {
 }
 
 .preview-card[data-theme="cool"] .preview-card__nav-badge { background: #4A7C9B; }
+.preview-card[data-theme="cool"] .preview-card__name { color: #4A7C9B; }
 .preview-card[data-theme="cool"] .preview-card__role { color: #4A7C9B; }
 .preview-card[data-theme="cool"] .preview-card__section-title { color: #4A7C9B; }
 .preview-card[data-theme="cool"] .preview-card__skills span {
@@ -1833,6 +1851,16 @@ button {
   background: var(--error);
   border-color: var(--error);
   color: white;
+}
+
+/* Subtle toast - less intrusive for info messages */
+.toast--subtle {
+  background: var(--bg-surface);
+  border-color: var(--border);
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  padding: 0.625rem 1rem;
+  box-shadow: var(--shadow-md);
 }
 
 /* Mobile toast */

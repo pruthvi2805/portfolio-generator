@@ -292,8 +292,48 @@
         <p class="builder__subtitle">Fill in your details, preview, and download your portfolio website.</p>
       </div>
 
-      <!-- Generator Form -->
-      <form id="portfolio-form" class="builder__form" novalidate>
+      <!-- Two-column layout -->
+      <div class="builder__layout">
+        <!-- Preview Sidebar (appears first on mobile, sticky on desktop) -->
+        <aside class="builder__sidebar">
+          <div class="preview-card" id="live-preview" data-theme="minimal-light">
+            <div class="preview-card__label">Live Preview</div>
+            <div class="preview-card__window">
+              <div class="preview-card__browser">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="preview-card__header" id="preview-header">
+                <div class="preview-card__avatar" id="preview-avatar">JD</div>
+                <div class="preview-card__name" id="preview-name">Your Name</div>
+                <div class="preview-card__role" id="preview-role">Your Role</div>
+              </div>
+              <div class="preview-card__body">
+                <div class="preview-card__section">
+                  <div class="preview-card__section-title">Experience</div>
+                  <div class="preview-card__lines">
+                    <div class="preview-card__line"></div>
+                    <div class="preview-card__line preview-card__line--medium"></div>
+                  </div>
+                </div>
+                <div class="preview-card__section">
+                  <div class="preview-card__section-title">Skills</div>
+                  <div class="preview-card__pills" id="preview-skills">
+                    <span>Skill 1</span>
+                    <span>Skill 2</span>
+                    <span>Skill 3</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="preview-card__theme-name">
+              Theme: <span id="preview-theme-name">Minimal</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Form -->
+        <main class="builder__main">
+          <form id="portfolio-form" class="builder__form" novalidate>
 
         <!-- Basic Info Section (with Theme Picker) -->
         <section class="form-section">
@@ -509,7 +549,9 @@
           <p class="form-actions__hint">Preview your portfolio first, then download when ready.</p>
         </div>
 
-      </form>
+          </form>
+        </main>
+      </div>
     </div>
 
     <!-- Footer -->

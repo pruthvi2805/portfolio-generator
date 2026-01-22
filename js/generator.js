@@ -77,41 +77,114 @@ const ToastManager = {
 };
 
 // ============================================
-// THEME NAME MANAGER
+// LIVE PREVIEW MANAGER
 // ============================================
 
-const ThemeNameManager = {
-  init() {
-    this.setupThemeCards();
+const LivePreviewManager = {
+  previewCard: null,
+  themeNames: {
+    'minimal-light': 'Minimal',
+    'forest': 'Forest',
+    'warm': 'Warm',
+    'cool': 'Cool'
+  },
 
-    // Set initial theme name display
+  init() {
+    this.previewCard = document.getElementById('live-preview');
+    if (!this.previewCard) return;
+
+    this.setupThemeListeners();
+    this.setupFormListeners();
+
+    // Set initial state
     const selectedTheme = document.querySelector('input[name="theme"]:checked');
     if (selectedTheme) {
-      this.updateThemeNameDisplay(selectedTheme.value);
+      this.updateTheme(selectedTheme.value);
     }
   },
 
-  setupThemeCards() {
-    const themeCards = document.querySelectorAll('.theme-btn input[name="theme"]');
-    themeCards.forEach(input => {
+  setupThemeListeners() {
+    const themeInputs = document.querySelectorAll('.theme-btn input[name="theme"]');
+    themeInputs.forEach(input => {
       input.addEventListener('change', (e) => {
-        this.updateThemeNameDisplay(e.target.value);
+        this.updateTheme(e.target.value);
       });
     });
   },
 
-  updateThemeNameDisplay(themeId) {
-    const themeNameElement = document.getElementById('selected-theme-name');
-    if (!themeNameElement) return;
+  setupFormListeners() {
+    // Name field
+    const nameInput = document.getElementById('fullName');
+    if (nameInput) {
+      nameInput.addEventListener('input', (e) => this.updateName(e.target.value));
+    }
 
-    const themeNames = {
-      'minimal-light': 'Minimal',
-      'forest': 'Forest',
-      'warm': 'Warm',
-      'cool': 'Cool'
-    };
+    // Role field
+    const roleInput = document.getElementById('role');
+    if (roleInput) {
+      roleInput.addEventListener('input', (e) => this.updateRole(e.target.value));
+    }
 
-    themeNameElement.textContent = themeNames[themeId] || themeId;
+    // Skills field
+    const skillsInput = document.getElementById('skills');
+    if (skillsInput) {
+      skillsInput.addEventListener('input', (e) => this.updateSkills(e.target.value));
+    }
+  },
+
+  updateTheme(themeId) {
+    if (!this.previewCard) return;
+
+    // Update data attribute for CSS styling
+    this.previewCard.setAttribute('data-theme', themeId);
+
+    // Update theme name displays
+    const previewThemeName = document.getElementById('preview-theme-name');
+    const selectedThemeName = document.getElementById('selected-theme-name');
+    const themeName = this.themeNames[themeId] || themeId;
+
+    if (previewThemeName) previewThemeName.textContent = themeName;
+    if (selectedThemeName) selectedThemeName.textContent = themeName;
+  },
+
+  updateName(name) {
+    const nameEl = document.getElementById('preview-name');
+    const avatarEl = document.getElementById('preview-avatar');
+
+    if (nameEl) {
+      nameEl.textContent = name.trim() || 'Your Name';
+    }
+
+    if (avatarEl) {
+      const initials = name.trim()
+        ? name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
+        : 'JD';
+      avatarEl.textContent = initials;
+    }
+  },
+
+  updateRole(role) {
+    const roleEl = document.getElementById('preview-role');
+    if (roleEl) {
+      roleEl.textContent = role.trim() || 'Your Role';
+    }
+  },
+
+  updateSkills(skillsText) {
+    const skillsEl = document.getElementById('preview-skills');
+    if (!skillsEl) return;
+
+    const skills = skillsText
+      ? skillsText.split(',').map(s => s.trim()).filter(s => s).slice(0, 4)
+      : ['Skill 1', 'Skill 2', 'Skill 3'];
+
+    skillsEl.innerHTML = skills.map(skill => `<span>${this.escapeHtml(skill)}</span>`).join('');
+  },
+
+  escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
   }
 };
 
@@ -262,9 +335,14 @@ const FormManager = {
         const themeInput = document.querySelector(`input[name="theme"][value="${draft.theme}"]`);
         if (themeInput) {
           themeInput.checked = true;
-          ThemeNameManager.updateThemeNameDisplay(draft.theme);
+          LivePreviewManager.updateTheme(draft.theme);
         }
       }
+
+      // Sync preview with restored data
+      if (draft.fullName) LivePreviewManager.updateName(draft.fullName);
+      if (draft.role) LivePreviewManager.updateRole(draft.role);
+      if (draft.skills) LivePreviewManager.updateSkills(draft.skills);
 
       // Only show toast if there's meaningful data
       const hasContent = draft.fullName || draft.role || draft.intro || draft.email ||
@@ -998,6 +1076,6 @@ function slugify(str) {
 
 document.addEventListener('DOMContentLoaded', () => {
   ToastManager.init();
-  ThemeNameManager.init();
+  LivePreviewManager.init();
   FormManager.init();
 });

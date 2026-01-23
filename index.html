@@ -130,6 +130,9 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22 fill=%22none%22><rect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230D9488%22/><path d=%22M8 22V10l8-4 8 4v12l-8 4-8-4z%22 stroke=%22white%22 stroke-width=%222%22 fill=%22none%22/><path d=%22M8 10l8 4 8-4M16 14v12%22 stroke=%22white%22 stroke-width=%222%22/></svg>">
   <link rel="manifest" href="manifest.json">
 
+  <!-- Performance Optimizations -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -143,8 +146,8 @@
   <div id="landing-view" class="view landing active">
     <!-- Header -->
     <header class="header">
-      <nav class="nav">
-        <a href="#" class="nav__brand" data-nav="landing">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#" class="nav__brand" data-nav="landing" aria-label="Portfolio Builder home">
           <span class="brand-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M4 19V5l8-3 8 3v14l-8 3-8-3z"/>
@@ -172,9 +175,9 @@
       </nav>
     </header>
 
-    <div class="landing__content">
+    <main class="landing__content">
       <!-- Hero Section - Centered, Bold -->
-      <section class="hero">
+      <section class="hero" aria-label="Hero section">
         <div class="hero__bg-shapes">
           <div class="hero__shape hero__shape--1"></div>
           <div class="hero__shape hero__shape--2"></div>
@@ -204,8 +207,8 @@
       </section>
 
       <!-- Theme Showcase - Visual Preview -->
-      <section class="themes-showcase">
-        <h2 class="themes-showcase__title">Pick your style</h2>
+      <section class="themes-showcase" aria-labelledby="themes-title">
+        <h2 id="themes-title" class="themes-showcase__title">Pick your style</h2>
         <div class="themes-showcase__grid">
           <div class="theme-preview theme-preview--minimal">
             <div class="theme-preview__window">
@@ -285,7 +288,7 @@
       </section>
 
       <!-- Flow Section - Visual Timeline -->
-      <section class="flow-section">
+      <section class="flow-section" aria-label="How it works">
         <div class="flow-section__container">
           <div class="flow-step">
             <div class="flow-step__icon">
@@ -321,7 +324,7 @@
       </section>
 
       <!-- Trust Banner -->
-      <section class="trust-banner">
+      <section class="trust-banner" aria-label="Privacy commitment">
         <div class="trust-banner__content">
           <div class="trust-banner__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -337,7 +340,7 @@
       </section>
 
       <!-- Footer -->
-      <footer class="footer">
+      <footer class="footer" role="contentinfo">
         <div class="footer__content">
           <p class="footer__text">&copy; 2026 Pruthvi Kauticwar · <a href="https://www.kpruthvi.com" target="_blank" rel="noopener noreferrer">kpruthvi.com</a> · <a href="https://www.kpruthvi.com/contact" target="_blank" rel="noopener noreferrer">Contact</a></p>
           <div class="footer__links">
@@ -346,7 +349,7 @@
           </div>
         </div>
       </footer>
-    </div>
+    </main>
   </div>
 
   <!-- ============================================
@@ -355,8 +358,8 @@
   <div id="builder-view" class="view builder">
     <!-- Header -->
     <header class="header">
-      <nav class="nav">
-        <a href="#" class="nav__brand" data-nav="landing">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#" class="nav__brand" data-nav="landing" aria-label="Portfolio Builder home">
           <span class="brand-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M4 19V5l8-3 8 3v14l-8 3-8-3z"/>
@@ -725,8 +728,8 @@
   <div id="privacy-view" class="view privacy">
     <!-- Header -->
     <header class="header">
-      <nav class="nav">
-        <a href="#" class="nav__brand" data-nav="landing">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#" class="nav__brand" data-nav="landing" aria-label="Portfolio Builder home">
           <span class="brand-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M4 19V5l8-3 8 3v14l-8 3-8-3z"/>

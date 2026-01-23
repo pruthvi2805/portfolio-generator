@@ -47,8 +47,8 @@ function generateHTML(data) {
   `).join('');
 
   const skillsHTML = data.skills && data.skills.length > 0 ? `
-      <section id="skills" class="resume-section">
-        <h2 class="resume-section__title">Skills</h2>
+      <section id="skills" class="resume-section" aria-labelledby="skills-title">
+        <h2 id="skills-title" class="resume-section__title">Skills</h2>
         <div class="skills-list">
           ${data.skills.map(skill => `<span class="skill-pill">${escapeHtml(skill.trim())}</span>`).join('')}
         </div>
@@ -56,8 +56,8 @@ function generateHTML(data) {
   ` : '';
 
   const educationHTML = data.education && data.education.length > 0 ? `
-      <section id="education" class="resume-section">
-        <h2 class="resume-section__title">Education</h2>
+      <section id="education" class="resume-section" aria-labelledby="education-title">
+        <h2 id="education-title" class="resume-section__title">Education</h2>
         <div class="education-list">
           ${data.education.map(edu => `
           <div class="education-item">
@@ -71,8 +71,8 @@ function generateHTML(data) {
   ` : '';
 
   const certificationsHTML = data.certifications && data.certifications.length > 0 ? `
-      <section id="certifications" class="resume-section">
-        <h2 class="resume-section__title">Certifications</h2>
+      <section id="certifications" class="resume-section" aria-labelledby="certifications-title">
+        <h2 id="certifications-title" class="resume-section__title">Certifications</h2>
         <div class="certifications-list">
           ${data.certifications.map(cert => `
           <div class="certification-item">
@@ -157,16 +157,60 @@ function generateHTML(data) {
       }
     })();
   </script>
-  <meta name="description" content="${escapeHtml(data.role)} - ${escapeHtml(data.fullName)}. ${escapeHtml(data.intro.substring(0, 150))}">
-  <meta name="author" content="${escapeHtml(data.fullName)}">
 
   <title>${escapeHtml(data.fullName)} - ${escapeHtml(data.role)}</title>
+  <meta name="description" content="${escapeHtml(data.role)} - ${escapeHtml(data.fullName)}. ${escapeHtml(data.intro.substring(0, 150))}">
+  <meta name="author" content="${escapeHtml(data.fullName)}">
+  <meta name="keywords" content="${escapeHtml(data.fullName)}, ${escapeHtml(data.role)}, portfolio, ${data.skills ? data.skills.slice(0, 5).map(s => escapeHtml(s.trim())).join(', ') : ''}">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="profile">
+  <meta property="og:profile:first_name" content="${escapeHtml(data.fullName.split(' ')[0] || '')}">
+  <meta property="og:profile:last_name" content="${escapeHtml(data.fullName.split(' ').slice(1).join(' ') || '')}">
+  <meta property="og:title" content="${escapeHtml(data.fullName)} - ${escapeHtml(data.role)}">
+  <meta property="og:description" content="${escapeHtml(data.intro.substring(0, 150))}">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="${escapeHtml(data.fullName)} - ${escapeHtml(data.role)}">
+  <meta name="twitter:description" content="${escapeHtml(data.intro.substring(0, 150))}">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "${escapeHtml(data.fullName)}",
+    "jobTitle": "${escapeHtml(data.role)}",
+    ${data.location ? `"address": {
+      "@type": "PostalAddress",
+      "addressLocality": "${escapeHtml(data.location)}"
+    },` : ''}
+    ${data.email ? `"email": "${escapeHtml(data.email)}",` : ''}
+    ${data.phone ? `"telephone": "${escapeHtml(data.phone)}",` : ''}
+    ${data.website ? `"url": "${escapeHtml(data.website.startsWith('http') ? data.website : 'https://' + data.website)}",` : ''}
+    "description": "${escapeHtml(data.intro)}",
+    ${data.linkedin || data.github ? `"sameAs": [${[data.linkedin, data.github].filter(Boolean).map(url => `"${escapeHtml(url.startsWith('http') ? url : 'https://' + url)}"`).join(', ')}],` : ''}
+    "alumniOf": [${data.education && data.education.length > 0 ? data.education.map(edu => `{
+      "@type": "EducationalOrganization",
+      "name": "${escapeHtml(edu.school || '')}"
+    }`).join(', ') : ''}],
+    "hasOccupation": {
+      "@type": "Occupation",
+      "name": "${escapeHtml(data.role)}"
+    }
+  }
+  </script>
 
   <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1A1A1A" media="(prefers-color-scheme: dark)">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${initials}</text></svg>">
 
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -177,8 +221,8 @@ function generateHTML(data) {
   <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
   <header class="header">
-    <nav class="nav">
-      <a href="#" class="nav__brand">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#" class="nav__brand" aria-label="Portfolio home">
         <span class="brand-badge">${initials}</span>
         <span class="brand-name">${escapeHtml(data.fullName)}</span>
       </a>
@@ -188,9 +232,9 @@ function generateHTML(data) {
     </nav>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" role="main">
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" aria-label="Introduction">
       <div class="hero__container">
         <p class="hero__greeting">Hi, I'm</p>
         <h1 class="hero__name">${escapeHtml(data.fullName)}</h1>
@@ -204,8 +248,8 @@ function generateHTML(data) {
 
     <!-- Resume Content -->
     <div class="resume-content">
-      <section id="experience" class="resume-section">
-        <h2 class="resume-section__title">Experience</h2>
+      <section id="experience" class="resume-section" aria-labelledby="experience-title">
+        <h2 id="experience-title" class="resume-section__title">Experience</h2>
         <div class="timeline">
 ${experienceHTML}
         </div>
@@ -217,7 +261,7 @@ ${certificationsHTML}
     </div>
   </main>
 
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="footer__content">
       <div class="footer__row">
         <p class="footer__text">&copy; ${new Date().getFullYear()} ${escapeHtml(data.fullName)}</p>

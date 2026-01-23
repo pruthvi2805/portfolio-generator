@@ -1,4 +1,12 @@
+# Portfolio Builder - robots.txt
+# https://portfolio-builder.kpruthvi.com/
+
 User-agent: *
 Allow: /
+Disallow: /libs/
 
+# Crawl rate
+Crawl-delay: 0
+
+# Sitemap
 Sitemap: https://portfolio-builder.kpruthvi.com/sitemap.xml
